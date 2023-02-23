@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var socket = io.connect("http://localhost:5000");
+        socket.on("connect", function () {
+          socket.send("User connected!");
+        });
+
+
+        socket.on('message', function(data){
+          $('#messages').append(($ '<p>').text(data))
+        });
+
+        $('sendBtn').con('click'), function () {
+          socket.send($('username').val() + ': ' + $('#message'))
+          $('message').val('')
+        }
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="messages"></div>
+    <input type="text" id="username " placeholder="Username" />
+    <input type="text" id="message " placeholder="Message" />
+    <button type="sendBtn">Send</button>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.esm.min.js"
+      integrity="sha512-fUxU0lx547CL7r6xWl+q21HHfQzu0yYPvXmtNVlScPhJYWQOn3YIj1J22crPHyTilEtXI50HU/+bHewryqJT1Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>
